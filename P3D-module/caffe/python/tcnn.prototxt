@@ -1,0 +1,774 @@
+name: ""
+layer {
+  name: "data"
+  type: "Python"
+  top: "data"
+  top: "label"
+  phase: TRAIN
+  python_param {
+    module: "data_layers.deconv_data_layer"
+    layer: "DataLayer"
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1.0
+    decay_mult: 2.0
+  }
+  param {
+    lr_mult: 1.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+  phase: TRAIN
+}
+layer {
+  name: "conv1_relu1_0_split"
+  type: "Split"
+  bottom: "conv1"
+  top: "conv1_relu1_0_split_0"
+  top: "conv1_relu1_0_split_1"
+  phase: TRAIN
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1_relu1_0_split_0"
+  top: "pool1"
+  phase: TRAIN
+  pooling_param {
+    pool: MAX
+    kernel_size: 1
+    kernel_size: 2
+    kernel_size: 2
+    stride: 1
+    stride: 2
+    stride: 2
+    pad: 0
+    engine: CUDNN
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+  phase: TRAIN
+}
+layer {
+  name: "conv2_relu2_0_split"
+  type: "Split"
+  bottom: "conv2"
+  top: "conv2_relu2_0_split_0"
+  top: "conv2_relu2_0_split_1"
+  phase: TRAIN
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2_relu2_0_split_0"
+  top: "pool2"
+  phase: TRAIN
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+    pad: 0
+    engine: CUDNN
+  }
+}
+layer {
+  name: "conv3a"
+  type: "Convolution"
+  bottom: "pool2"
+  top: "conv3a"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu3a"
+  type: "ReLU"
+  bottom: "conv3a"
+  top: "conv3a"
+  phase: TRAIN
+}
+layer {
+  name: "conv3b"
+  type: "Convolution"
+  bottom: "conv3a"
+  top: "conv3b"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu3b"
+  type: "ReLU"
+  bottom: "conv3b"
+  top: "conv3b"
+  phase: TRAIN
+}
+layer {
+  name: "conv3b_relu3b_0_split"
+  type: "Split"
+  bottom: "conv3b"
+  top: "conv3b_relu3b_0_split_0"
+  top: "conv3b_relu3b_0_split_1"
+  phase: TRAIN
+}
+layer {
+  name: "pool3"
+  type: "Pooling"
+  bottom: "conv3b_relu3b_0_split_0"
+  top: "pool3"
+  phase: TRAIN
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+    pad: 0
+    engine: CUDNN
+  }
+}
+layer {
+  name: "conv4a"
+  type: "Convolution"
+  bottom: "pool3"
+  top: "conv4a"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu4a"
+  type: "ReLU"
+  bottom: "conv4a"
+  top: "conv4a"
+  phase: TRAIN
+}
+layer {
+  name: "conv4b"
+  type: "Convolution"
+  bottom: "conv4a"
+  top: "conv4b"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu4b"
+  type: "ReLU"
+  bottom: "conv4b"
+  top: "conv4b"
+  phase: TRAIN
+}
+layer {
+  name: "conv4b_relu4b_0_split"
+  type: "Split"
+  bottom: "conv4b"
+  top: "conv4b_relu4b_0_split_0"
+  top: "conv4b_relu4b_0_split_1"
+  phase: TRAIN
+}
+layer {
+  name: "pool4"
+  type: "Pooling"
+  bottom: "conv4b_relu4b_0_split_0"
+  top: "pool4"
+  phase: TRAIN
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+    pad: 0
+    engine: CUDNN
+  }
+}
+layer {
+  name: "conv5a"
+  type: "Convolution"
+  bottom: "pool4"
+  top: "conv5a"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu5a"
+  type: "ReLU"
+  bottom: "conv5a"
+  top: "conv5a"
+  phase: TRAIN
+}
+layer {
+  name: "conv5b"
+  type: "Convolution"
+  bottom: "conv5a"
+  top: "conv5b"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu5b"
+  type: "ReLU"
+  bottom: "conv5b"
+  top: "conv5b"
+  phase: TRAIN
+}
+layer {
+  name: "conv4c"
+  type: "Convolution"
+  bottom: "conv5b"
+  top: "conv4c"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu4c"
+  type: "ReLU"
+  bottom: "conv4c"
+  top: "conv4c"
+  phase: TRAIN
+}
+layer {
+  name: "trans4"
+  type: "DeconvTrans"
+  bottom: "conv4c"
+  top: "trans4"
+  phase: TRAIN
+  deconv_trans_param {
+    stride: 2
+    stride: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv4d"
+  type: "Convolution"
+  bottom: "conv4b_relu4b_0_split_1"
+  top: "conv4d"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu4d"
+  type: "ReLU"
+  bottom: "conv4d"
+  top: "conv4d"
+  phase: TRAIN
+}
+layer {
+  name: "concat4"
+  type: "Concat"
+  bottom: "trans4"
+  bottom: "conv4d"
+  top: "concat4"
+  phase: TRAIN
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "conv3c"
+  type: "Convolution"
+  bottom: "concat4"
+  top: "conv3c"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu3c"
+  type: "ReLU"
+  bottom: "conv3c"
+  top: "conv3c"
+  phase: TRAIN
+}
+layer {
+  name: "trans3"
+  type: "DeconvTrans"
+  bottom: "conv3c"
+  top: "trans3"
+  phase: TRAIN
+  deconv_trans_param {
+    stride: 2
+    stride: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv3d"
+  type: "Convolution"
+  bottom: "conv3b_relu3b_0_split_1"
+  top: "conv3d"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu3d"
+  type: "ReLU"
+  bottom: "conv3d"
+  top: "conv3d"
+  phase: TRAIN
+}
+layer {
+  name: "concat3"
+  type: "Concat"
+  bottom: "trans3"
+  bottom: "conv3d"
+  top: "concat3"
+  phase: TRAIN
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "conv2c"
+  type: "Convolution"
+  bottom: "concat3"
+  top: "conv2c"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu2c"
+  type: "ReLU"
+  bottom: "conv2c"
+  top: "conv2c"
+  phase: TRAIN
+}
+layer {
+  name: "trans2"
+  type: "DeconvTrans"
+  bottom: "conv2c"
+  top: "trans2"
+  phase: TRAIN
+  deconv_trans_param {
+    stride: 2
+    stride: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv2d"
+  type: "Convolution"
+  bottom: "conv2_relu2_0_split_1"
+  top: "conv2d"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu2d"
+  type: "ReLU"
+  bottom: "conv2d"
+  top: "conv2d"
+  phase: TRAIN
+}
+layer {
+  name: "concat2"
+  type: "Concat"
+  bottom: "trans2"
+  bottom: "conv2d"
+  top: "concat2"
+  phase: TRAIN
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "conv1c"
+  type: "Convolution"
+  bottom: "concat2"
+  top: "conv1c"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "relu1c"
+  type: "ReLU"
+  bottom: "conv1c"
+  top: "conv1c"
+  phase: TRAIN
+}
+layer {
+  name: "trans1"
+  type: "DeconvTrans"
+  bottom: "conv1c"
+  top: "trans1"
+  phase: TRAIN
+  deconv_trans_param {
+    stride: 1
+    stride: 2
+    stride: 2
+  }
+}
+layer {
+  name: "concat1"
+  type: "Concat"
+  bottom: "trans1"
+  bottom: "conv1_relu1_0_split_1"
+  top: "concat1"
+  phase: TRAIN
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "conv_pred"
+  type: "Convolution"
+  bottom: "concat1"
+  top: "logits"
+  param {
+    lr_mult: 1.0
+    decay_mult: 1.0
+  }
+  param {
+    lr_mult: 2.0
+    decay_mult: 0.0
+  }
+  phase: TRAIN
+  convolution_param {
+    num_output: 2
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.00999999977648
+    }
+    bias_filler {
+      type: "constant"
+      value: 1.0
+    }
+    engine: CUDNN
+  }
+}
+layer {
+  name: "loss"
+  type: "SoftmaxWithLoss"
+  bottom: "logits"
+  bottom: "label"
+  top: "loss"
+  loss_weight: 1.0
+  phase: TRAIN
+}
