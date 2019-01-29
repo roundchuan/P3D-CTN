@@ -19,4 +19,4 @@ P3D_cls_eval.py and P3D_loc_eval.py are used for testing P3D-module
 ### Traning  
 ll.sh(JHMDB), ll_101.sh(UCF101), ll_sports.sh(UCFSports) are used for training 2D-module  
 ### Evaluating  
-action_tools/jhmdb_eval.py  ucfsports_eval.py  ucf101_eval.py are used for testing 2D-module
+action_tools/jhmdb_eval.py  ucfsports_eval.py  ucf101_eval.py are used for evaluating 2D-module(frame-AP, video-AP)
