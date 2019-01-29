@@ -2,11 +2,12 @@
 
 A two step manner. First, tube proposals are generated from P3D-module, and box proposals are produced from 2d-module based on the tube proposals.
 ## Installation
-just follow Caffe standard installation instructions.
+1. Just follow Caffe standard installation instructions.  
+2. Run P3D-module setup.py to build fundamental enviroment
 
 ## Datasets
-download three benchmark datasets(JHMDB, UCF101, UCFSports)  
-use the scripts on P3D-module/datasets to generate the data format for training
+Download three benchmark datasets(JHMDB, UCF101, UCFSports).   
+Use the scripts on P3D-module/datasets to generate the data format for training
 
 ## P3D-module
 ### Training  
