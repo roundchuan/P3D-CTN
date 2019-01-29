@@ -1,6 +1,12 @@
 # P3D-CTN
 
 A two step manner. First, tube proposals are generated from P3D-module, and box proposals are produced from 2d-module based on the tube proposals.
+## Installation
+just follow Caffe standard installation instructions.
+
+## Datasets
+download three benchmark datasets(JHMDB, UCF101, UCFSports)  
+use the scripts on P3D-module/datasets to generate the data format for training
 
 ## P3D-module
 ### Training  
