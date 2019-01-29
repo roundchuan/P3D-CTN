@@ -6,6 +6,8 @@ A two step manner. First, tube proposals are generated from P3D-module, and box 
 1. Just follow Caffe standard installation instructions.  
 2. Run P3D-module setup.py to build fundamental enviroment
 
+        python setup.py
+        
 ## Datasets
 Download three benchmark datasets(JHMDB, UCF101, UCFSports).   
 Use the scripts on P3D-module/datasets to generate the data format for training
@@ -20,6 +22,9 @@ P3D_cls_train.sh and P3D_loc_train.sh are used for training P3D-module
 ### Testing  
 P3D_cls_eval.py and P3D_loc_eval.py are used for testing P3D-module  
 
+        python P3D_cls_eval.py
+        python P3D_loc_eval.py
+        
 ## 2D-module
 ### Traning  
 ll.sh(JHMDB), ll_101.sh(UCF101), ll_sports.sh(UCFSports) are used for training 2D-module  
