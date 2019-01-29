@@ -3,8 +3,10 @@ The P3D-CTN is a framework for spatio-temporal action detection. It integrates t
 
 A two step manner. First, tube proposals are generated from P3D-module, and box proposals are produced from 2d-module based on the tube proposals.
 ## Installation
-1. Just follow Caffe standard installation instructions.  
-2. Run P3D-module setup.py to build fundamental enviroment
+1. Download repository
+    git clone 
+2. Just follow Caffe standard installation instructions.  
+3. Run P3D-module setup.py to build fundamental enviroment
 
 ## Datasets
 Download three benchmark datasets(JHMDB, UCF101, UCFSports).   
@@ -13,6 +15,10 @@ Use the scripts on P3D-module/datasets to generate the data format for training
 ## P3D-module
 ### Training  
 P3D_cls_train.sh and P3D_loc_train.sh are used for training P3D-module  
+
+    sh P3D_cls_train.sh
+    sh P3D_loc_train.sh
+    
 ### Testing  
 P3D_cls_eval.py and P3D_loc_eval.py are used for testing P3D-module 
 
