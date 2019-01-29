@@ -4,9 +4,8 @@ This layer will parse pixel values and actionness labels to the network.
 '''
 import sys
 sys.path.insert(0, '/data/wjc/TCNN_STCNN/caffe/python')
-#sys.path.insert(0, '/home/rhou/caffe/python')
 import caffe
-from dataset.jhmdb import jhmdb
+from dataset.jhmdb_au import jhmdb_au
 import numpy as np
 from utils.cython_bbox import bbox_overlaps
 from utils.bbox_transform import bbox_transform_inv
@@ -17,7 +16,7 @@ class RegDataLayer():
     self._depth = 8
     self._height = 300
     self._width = 400
-    self.dataset = jhmdb('val', [self._height, self._width],
+    self.dataset = jhmdb_au('val', [self._height, self._width],
                              split=1)
     self.top = 40
 

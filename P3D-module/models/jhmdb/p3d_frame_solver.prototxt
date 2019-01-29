@@ -1,0 +1,20 @@
+train_net: "model_kinetics/train_reg_p3d_resnet_jhmdb.prototxt"
+test_net: "model_kinetics/test_reg_p3d_resnet_jhmdb.prototxt"
+test_iter: 1000
+test_interval: 1000
+base_lr: 0.0001
+lr_policy: "step"
+gamma: 0.1
+stepsize: 30000
+display: 20
+#average_loss: 100
+momentum: 0.9
+weight_decay: 0.0005
+
+max_iter: 50000
+snapshot: 5000
+snapshot_prefix: "/data/wjc/TCNN_STCNN/models/toi_p3d/p3d_frame_300_400_124_p3d_0"
+# solver mode: CPU or GPU
+solver_mode: GPU
+
+iter_size: 4

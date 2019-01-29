@@ -3,9 +3,9 @@ The Caffe data layer for training label classifier.
 This layer will parse pixel values and actionness labels to the network.
 '''
 import sys
-sys.path.insert(0, '/data/wjc/TCNN_STCNN/caffe/python')
+sys.path.insert(0, 'caffe/python')
 import caffe
-from dataset.jhmdb_au import jhmdb_au
+from dataset.jhmdb import jhmdb
 import numpy as np
 from utils.cython_bbox import bbox_overlaps
 from utils.bbox_transform import bbox_transform
@@ -16,7 +16,7 @@ class RegDataLayer(caffe.Layer):
     self._depth = 8
     self._height = 300
     self._width = 400
-    self.dataset = jhmdb_au('train', [self._height, self._width], split=1)
+    self.dataset = jhmdb('val', [self._height, self._width], split=1)
     self.num_classes = self.dataset._num_classes - 1
     self.anchors, self.valid_idx, self._anchor_dims = self.dataset.get_anchors()
 
@@ -24,13 +24,13 @@ class RegDataLayer(caffe.Layer):
     # Clip data.
     top[0].reshape(self._batch_size, 3, self._depth, self._height, self._width)
     # Ground truth labels.
-    top[1].reshape(self._batch_size * 16, self.num_classes * 4)
+    top[1].reshape(self._batch_size * 32, self.num_classes * 4)
     # Ground truth tois.
-    top[2].reshape(self._batch_size * 16, 5)
+    top[2].reshape(self._batch_size * 32, 5)
     # Mask
-    top[3].reshape(self._batch_size * 16, self.num_classes * 4)
+    top[3].reshape(self._batch_size * 32, self.num_classes * 4)
     # Second tois.
-    top[4].reshape(self._batch_size * 16, 5)
+    top[4].reshape(self._batch_size * 32, 5)
 
   def forward(self, bottom, top):
     [clips, labels, tmp_bboxes, _, _, tmp_pred] \
@@ -46,11 +46,11 @@ class RegDataLayer(caffe.Layer):
     for i in xrange(self._depth):
       box = tmp_bboxes[0, :, :]
       gt_bboxes = np.expand_dims((box[i] / 16), axis=0)
-
-   #   box = np.expand_dims(box, axis=0)
-   #   gt_bboxes = np.mean(box, axis=1) / 16
+      
       pred = tmp_pred[0,:,:,:]
       pred_anchors = np.reshape(pred[i], (-1,4)) * 1.25
+      #box = np.expand_dims(box, axis=0)
+      #gt_bboxes = np.mean(box, axis=1) / 16
       #print gt_bboxes
       overlaps = bbox_overlaps(
         np.ascontiguousarray(self.anchors, dtype=np.float),
@@ -63,15 +63,15 @@ class RegDataLayer(caffe.Layer):
 
       curr_labels = np.ones(self.anchors.shape[0]) * (-1)
       curr_labels[max_overlaps < 0.5] = 0
-      curr_labels[max_overlaps >= 0.6] = labels[0]
+      curr_labels[max_overlaps >= 0.7] = labels[0]
 
       curr_labels[gt_argmax_overlaps] = labels[0]
 
       fg_inds = np.where(curr_labels > 0)[0]
       num_fg = len(fg_inds)
-      if len(fg_inds) > 2:
-        fg_inds = np.random.choice(fg_inds, size=(2))
-        num_fg = 2
+      if len(fg_inds) > 4:
+        fg_inds = np.random.choice(fg_inds, size=(4))
+        num_fg = 4
 
       curr_idx = np.arange(self._depth).reshape(1, self._depth)
       curr_idx = np.repeat(curr_idx, num_fg, axis=0).reshape(-1, 1)

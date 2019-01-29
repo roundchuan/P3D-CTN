@@ -3,8 +3,7 @@ The Caffe data layer for training label classifier.
 This layer will parse pixel values and actionness labels to the network.
 '''
 import sys
-sys.path.insert(0, '/data/wjc/TCNN_STCNN/caffe/python')
-#sys.path.insert(0, '/home/rhou/caffe/python')
+sys.path.insert(0, 'caffe/python')
 import caffe
 #from dataset.jhmdb import jhmdb
 from dataset.jhmdb_au_nms import jhmdb_au_nms
@@ -17,8 +16,6 @@ class RecDataLayer(caffe.Layer):
     self._depth = 8
     self._height = 300
     self._width = 400
-    #self.dataset = jhmdb('train', [self._height, self._width],
-    #                         '/home/rhou/JHMDB')
     self.dataset = jhmdb_au_nms('train', [self._height, self._width], split=1)
 
     self.anchors, self.valid_idx, self._anchor_dims = self.dataset.get_anchors()
