@@ -1,5 +1,7 @@
 # P3D-CTN
 
+A two step manner. First, tube proposals are generated from P3D-module, and box proposals are produced from 2d-module based on the tube proposals.
+
 ## P3D-module
 ### Training  
 P3D_cls_train.sh and P3D_loc_train.sh are used for training P3D-module  
