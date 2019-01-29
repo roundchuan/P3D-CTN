@@ -1,4 +1,5 @@
 # P3D-CTN
+The P3D-CTN is a framework for spatio-temporal action detection. It integrates the frame-based two-dimensional convolutional module with the video-based P3D convolutional module.
 
 A two step manner. First, tube proposals are generated from P3D-module, and box proposals are produced from 2d-module based on the tube proposals.
 ## Installation
