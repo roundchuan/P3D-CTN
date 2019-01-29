@@ -36,6 +36,6 @@ ll.sh(JHMDB), ll_101.sh(UCF101), ll_sports.sh(UCFSports) are used for training 2
 ### Evaluating  
 action_tools/jhmdb_eval.py  ucfsports_eval.py  ucf101_eval.py are used for evaluating 2D-module(frame-AP, video-AP)
 
-        python 2D-module/action_tools/jhmdb_eval.py --proto 2D-module//models/JHMDB/VGG_16/test_1.prototxt --net 2D-module/output/faster_rcnn_end2end/JHMDB_RGB_1_split_0/RGB_1_VGG_16_iter_50000.caffemodel --imdb JHMDB_RGB_1_split_0 --out 2D-module/action_results/jhmdb.pkl
-        python 2D-module/action_tools/ucf101_eval.py --proto 2D-module//models/UCF101/VGG_16/test_1.prototxt --net 2D-module/output/faster_rcnn_end2end/UCF101_RGB_1_split_0/RGB_1_VGG_16_iter_50000.caffemodel --imdb UCF101_RGB_1_split_0 --out 2D-module/action_results/ucf101.pkl
-        python 2D-module/action_tools/ucfsports_eval.py --proto 2D-module//models/UCFSports/VGG_16/test_1.prototxt --net 2D-module/output/faster_rcnn_end2end/UCFSports_RGB_1_split_0/RGB_1_VGG_16_iter_100000.caffemodel --imdb UCFSports_RGB_1_split_0 --out 2D-module/action_results/ucfsports.pkl
+        python 2D-module/action_tools/jhmdb_eval.py --proto 2D-module//models/JHMDB/VGG_16/test_1.prototxt --net 2D-module/output/faster_rcnn_end2end/JHMDB_RGB_1_split_0/RGB_1_VGG_16_iter_70000.caffemodel --imdb JHMDB_RGB_1_split_0 --out 2D-module/action_results/jhmdb.pkl
+        python 2D-module/action_tools/ucf101_eval.py --proto 2D-module//models/UCF101/VGG_16/test_1.prototxt --net 2D-module/output/faster_rcnn_end2end/UCF101_RGB_1_split_0/RGB_1_VGG_16_iter_100000.caffemodel --imdb UCF101_RGB_1_split_0 --out 2D-module/action_results/ucf101.pkl
+        python 2D-module/action_tools/ucfsports_eval.py --proto 2D-module//models/UCFSports/VGG_16/test_1.prototxt --net 2D-module/output/faster_rcnn_end2end/UCFSports_RGB_1_split_0/RGB_1_VGG_16_iter_70000.caffemodel --imdb UCFSports_RGB_1_split_0 --out 2D-module/action_results/ucfsports.pkl
